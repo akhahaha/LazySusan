@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="5dp">
+
+    <ImageView
+        android:id="@+id/entree_image"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:contentDescription="@string/entreeImageDesc"
+        android:scaleType="centerCrop"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/entree_header"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="5dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/entree_business"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:maxLines="1"
+                    android:text="@string/entreeBusinessDefault"
+                    android:textAppearance="?android:attr/textAppearanceMedium"/>
+
+                <TextView
+                    android:id="@+id/entree_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/entreePriceDefault"
+                    android:textAppearance="?android:attr/textAppearanceMedium"/>
+            </LinearLayout>
+
+            <com.alankhazam.lazysusan.views.SmartTextView
+                android:id="@+id/entree_name"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:fontFamily="sans-serif-thin"
+                android:maxLines="1"
+                android:text="@string/entreeNameDefault"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textSize="36sp"
+                android:textStyle="bold"/>
+        </LinearLayout>
+
+        <com.sothree.slidinguppanel.SlidingUpPanelLayout
+            android:id="@+id/entree_sliding_layout"
+            xmlns:sothree="http://schemas.android.com/apk/res-auto"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="top"
+            sothree:umanoFadeColor="@android:color/transparent"
+            sothree:umanoOverlay="true"
+            sothree:umanoPanelHeight="20dp"
+            sothree:umanoShadowHeight="5dp">
+
+            <!-- Main view -->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:clickable="true"/>
+
+            <!-- Slide-up Panel -->
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="5dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <!-- Entree information -->
+                    <TextView
+                        android:id="@+id/entree_description"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:lines="2"
+                        android:text="@string/entreeDescDefault"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:textStyle="italic"/>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <RatingBar
+                            android:id="@+id/entree_rating_bar"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentStart="true"
+                            android:isIndicator="true"
+                            android:max="5"
+                            android:numStars="5"
+                            android:stepSize="0.5"/>
+
+                        <TextView
+                            android:id="@+id/entree_rating_stats"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_toEndOf="@id/entree_rating_bar"
+                            android:text="@string/entreeRatingDefault"
+                            android:textAppearance="?android:attr/textAppearanceSmall"/>
+                    </RelativeLayout>
+
+                    <!-- Business information -->
+                    <LinearLayout
+                        android:id="@+id/entree_business_container"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
+                        android:background="@drawable/border_white"
+                        android:orientation="vertical"
+                        android:padding="5dp"
+                        android:visibility="gone">
+
+                        <TextView
+                            android:id="@+id/entree_business_name"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/businessNameDefault"
+                            android:textAppearance="?android:attr/textAppearanceLarge"/>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/entree_business_phone"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="@string/phoneDefault"
+                                android:textAppearance="?android:attr/textAppearanceMedium"/>
+
+                            <TextView
+                                android:id="@+id/entree_business_web"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/webDefault"
+                                android:textAppearance="?android:attr/textAppearanceMedium"/>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/entree_business_address"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="@string/addressDefault"
+                                android:textAppearance="?android:attr/textAppearanceMedium"/>
+                        </LinearLayout>
+                    </LinearLayout>
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/entree_pull_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+                    android:text="@string/pullTextMore"
+                    android:textAllCaps="true"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textColor="@color/android:darker_gray"
+                    android:textSize="12sp"/>
+            </RelativeLayout>
+        </com.sothree.slidinguppanel.SlidingUpPanelLayout>
+    </LinearLayout>
+</RelativeLayout>

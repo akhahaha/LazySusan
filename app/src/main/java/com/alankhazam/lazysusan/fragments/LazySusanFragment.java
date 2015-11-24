@@ -8,10 +8,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.TextView;
 
 import com.alankhazam.lazysusan.R;
 import com.alankhazam.lazysusan.views.CardStackView;
+import com.alankhazam.lazysusan.views.EntreeView;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -118,9 +118,8 @@ public class LazySusanFragment extends Fragment {
 
         @Override
         public View getView(int position, View view, ViewGroup parent) {
-            TextView textView = new TextView(getActivity());
-            textView.setText(position + "hello");
-            return textView;
+            EntreeView entreeView = new EntreeView(getActivity());
+            return entreeView;
         }
     }
 }
