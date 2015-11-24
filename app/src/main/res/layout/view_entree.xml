@@ -22,6 +22,7 @@
             android:id="@+id/entree_header"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@color/colorCardBg"
             android:orientation="vertical"
             android:padding="5dp">
 
@@ -37,14 +38,16 @@
                     android:layout_weight="1"
                     android:maxLines="1"
                     android:text="@string/entreeBusinessDefault"
-                    android:textAppearance="?android:attr/textAppearanceMedium"/>
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="@color/colorCardText"/>
 
                 <TextView
                     android:id="@+id/entree_price"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/entreePriceDefault"
-                    android:textAppearance="?android:attr/textAppearanceMedium"/>
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="@color/colorCardText"/>
             </LinearLayout>
 
             <com.alankhazam.lazysusan.views.SmartTextView
@@ -55,6 +58,7 @@
                 android:maxLines="1"
                 android:text="@string/entreeNameDefault"
                 android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="@color/colorCardText"
                 android:textSize="36sp"
                 android:textStyle="bold"/>
         </LinearLayout>
@@ -80,6 +84,7 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:background="@color/colorCardBg"
                 android:padding="5dp">
 
                 <LinearLayout
@@ -95,6 +100,7 @@
                         android:lines="2"
                         android:text="@string/entreeDescDefault"
                         android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:textColor="@color/colorCardText"
                         android:textStyle="italic"/>
 
                     <RelativeLayout
@@ -117,7 +123,8 @@
                             android:layout_height="wrap_content"
                             android:layout_toEndOf="@id/entree_rating_bar"
                             android:text="@string/entreeRatingDefault"
-                            android:textAppearance="?android:attr/textAppearanceSmall"/>
+                            android:textAppearance="?android:attr/textAppearanceSmall"
+                            android:textColor="@color/colorCardText"/>
                     </RelativeLayout>
 
                     <!-- Business information -->
@@ -136,7 +143,8 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="@string/businessNameDefault"
-                            android:textAppearance="?android:attr/textAppearanceLarge"/>
+                            android:textAppearance="?android:attr/textAppearanceLarge"
+                            android:textColor="@color/colorCardText"/>
 
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -149,14 +157,16 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:text="@string/phoneDefault"
-                                android:textAppearance="?android:attr/textAppearanceMedium"/>
+                                android:textAppearance="?android:attr/textAppearanceMedium"
+                                android:textColor="@color/colorCardText"/>
 
                             <TextView
                                 android:id="@+id/entree_business_web"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="@string/webDefault"
-                                android:textAppearance="?android:attr/textAppearanceMedium"/>
+                                android:textAppearance="?android:attr/textAppearanceMedium"
+                                android:textColor="@color/colorCardText"/>
                         </LinearLayout>
 
                         <LinearLayout
@@ -170,7 +180,8 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:text="@string/addressDefault"
-                                android:textAppearance="?android:attr/textAppearanceMedium"/>
+                                android:textAppearance="?android:attr/textAppearanceMedium"
+                                android:textColor="@color/colorCardText"/>
                         </LinearLayout>
                     </LinearLayout>
                 </LinearLayout>
