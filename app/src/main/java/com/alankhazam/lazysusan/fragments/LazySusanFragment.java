@@ -7,8 +7,11 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.BaseAdapter;
+import android.widget.TextView;
 
 import com.alankhazam.lazysusan.R;
+import com.alankhazam.lazysusan.views.CardStackView;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -20,6 +23,9 @@ import com.alankhazam.lazysusan.R;
  */
 public class LazySusanFragment extends Fragment {
     private OnFragmentInteractionListener mListener;
+
+    private CardStackView mCardStackView;
+    private BaseAdapter mAdapter;
 
     public LazySusanFragment() {
         // Required empty public constructor
@@ -47,7 +53,11 @@ public class LazySusanFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_lazy_susan, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_lazy_susan, container, false);
+        mCardStackView = (CardStackView) rootView.findViewById(R.id.cardStackView);
+        mAdapter = new EntreeStackAdapter();
+        mCardStackView.setAdapter(mAdapter);
+        return rootView;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -87,5 +97,30 @@ public class LazySusanFragment extends Fragment {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
+    }
+
+    public class EntreeStackAdapter extends BaseAdapter {
+
+        @Override
+        public int getCount() {
+            return 5;
+        }
+
+        @Override
+        public Object getItem(int position) {
+            return position;
+        }
+
+        @Override
+        public long getItemId(int position) {
+            return position;
+        }
+
+        @Override
+        public View getView(int position, View view, ViewGroup parent) {
+            TextView textView = new TextView(getActivity());
+            textView.setText(position + "hello");
+            return textView;
+        }
     }
 }
