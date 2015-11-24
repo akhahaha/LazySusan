@@ -3,4 +3,25 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+
+    <!-- Transparencies (% opacity) -->
+    <color name="transparent_black10">#1A000000</color>
+    <color name="transparent_black20">#33000000</color>
+    <color name="transparent_black30">#F3000000</color>
+    <color name="transparent_black40">#73000000</color>
+    <color name="transparent_black50">#80000000</color>
+    <color name="transparent_black60">#99000000</color>
+    <color name="transparent_black70">#B3000000</color>
+    <color name="transparent_black80">#CC000000</color>
+    <color name="transparent_black90">#E6000000</color>
+
+    <color name="transparent_white10">#1AFFFFFF</color>
+    <color name="transparent_white20">#33FFFFFF</color>
+    <color name="transparent_white30">#F3FFFFFF</color>
+    <color name="transparent_white40">#73FFFFFF</color>
+    <color name="transparent_white50">#80FFFFFF</color>
+    <color name="transparent_white60">#99FFFFFF</color>
+    <color name="transparent_white70">#B3FFFFFF</color>
+    <color name="transparent_white80">#CCFFFFFF</color>
+    <color name="transparent_white90">#E6FFFFFF</color>
 </resources>
