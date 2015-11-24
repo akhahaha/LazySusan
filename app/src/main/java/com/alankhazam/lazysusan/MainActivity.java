@@ -1,5 +1,6 @@
 package com.alankhazam.lazysusan;
 
+import android.os.AsyncTask;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -18,7 +19,32 @@ import android.view.ViewGroup;
 
 import android.widget.TextView;
 
+import java.io.BufferedInputStream;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
+
 public class MainActivity extends AppCompatActivity {
+
+    private static class YelpAPIWrapper extends AsyncTask<String, String, Result<String, String>> {
+
+        @Override
+        protected Result<String, String> doInBackground(String... params){
+            String result = "";
+            try{
+                URL earl = new URL(params[0]);
+                HttpURLConnection urlConnection = (HttpURLConnection) earl.openConnection();
+                InputStream in = new BufferedInputStream(urlConnection.getInputStream());
+            }catch(Exception e){
+                return new Result.Error(e.getMessage());
+            }
+            return new Result.OK(result);
+        }
+
+        protected void onPostExecute(String result){
+
+        }
+    }
 
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
