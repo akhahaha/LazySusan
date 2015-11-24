@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="Encoding">
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/alankhazam/lazysusan/data/Business.java" charset="windows-1252" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/alankhazam/lazysusan/data/Entree.java" charset="windows-1252" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/alankhazam/lazysusan/data/MockBusinesses.java" charset="windows-1252" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/alankhazam/lazysusan/data/MockEntrees.java" charset="windows-1252" />
     <file url="PROJECT" charset="UTF-8" />
   </component>
 </project>
