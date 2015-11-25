@@ -118,6 +118,7 @@
                         android:id="@+id/entree_rating_stats"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
                         android:layout_toEndOf="@id/entree_rating_bar"
                         android:text="@string/entreeRatingDefault"
                         android:textAppearance="?android:attr/textAppearanceSmall"

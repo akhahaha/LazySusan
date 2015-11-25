@@ -3,7 +3,10 @@ package com.alankhazam.lazysusan.views;
 import android.content.Context;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.LayerDrawable;
+import android.telephony.PhoneNumberUtils;
+import android.text.util.Linkify;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
@@ -13,7 +16,9 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.alankhazam.lazysusan.R;
+import com.alankhazam.lazysusan.data.Business;
 import com.alankhazam.lazysusan.data.Entree;
+import com.alankhazam.lazysusan.http.BusinessTask;
 import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 import com.squareup.picasso.Picasso;
 
@@ -23,13 +28,11 @@ import java.text.NumberFormat;
  * Entree view
  * Created by Alan on 11/24/2015.
  */
-public class EntreeView extends RelativeLayout {
+public class EntreeView extends RelativeLayout implements BusinessTask.BusinessTaskCallback {
 
     private GestureDetector mHeaderGestureDetector;
     private SlidingUpPanelLayout mSlideLayout;
     private SlidingUpPanelLayout.PanelSlideListener mPanelSlideListener;
-
-    private Entree mEntree;
 
     public EntreeView(Context context) {
         this(context, null, 0);
@@ -64,9 +67,7 @@ public class EntreeView extends RelativeLayout {
         mSlideLayout.setPanelSlideListener(new SlidingUpPanelLayout.SimplePanelSlideListener());
     }
 
-    public boolean setEntree(Entree entree) {
-        mEntree = entree;
-
+    public void setEntree(Entree entree) {
         // Set image
         if (entree.displayImage != null) {
             Picasso.with(getContext()).load(entree.displayImage).into(
@@ -76,6 +77,10 @@ public class EntreeView extends RelativeLayout {
             Picasso.with(getContext()).load(R.drawable.bg_splash).into(
                     (ImageView) findViewById(R.id.entree_image));
         }
+
+        // Set business info (download if necessary)
+//        if (entree.business == null) {
+        new BusinessTask(entree.businessId).setCallback(this).execute();
 
         // Set entree header information
         ((SmartTextView) findViewById(R.id.entree_name)).setText(entree.name);
@@ -94,8 +99,42 @@ public class EntreeView extends RelativeLayout {
         ratingBar.setRating(entree.ratingAverage.floatValue());
         String ratingStats = entree.ratingAverage + " / 5.0\n" + entree.ratingCount + " Reviews";
         ((TextView) findViewById(R.id.entree_rating_stats)).setText(ratingStats);
+    }
 
-        return true;
+    public void setBusiness(Business business) {
+        // Make container visible
+        findViewById(R.id.entree_business_container)
+                .setVisibility(View.VISIBLE);
+
+        TextView nameText = ((TextView) findViewById(R.id.entree_business));
+        TextView phoneText = ((TextView) findViewById(R.id.entree_business_phone));
+        TextView webText = ((TextView) findViewById(R.id.entree_business_web));
+        TextView addressText = ((TextView) findViewById(R.id.entree_business_address));
+
+        // Display business name
+        nameText.setText(business.name);
+
+        // Display business phone
+        phoneText.setText(PhoneNumberUtils.formatNumber(business.phone));
+
+        // Display business web link
+        // TODO Implement link, or shortURL
+        webText.setText("Website");
+
+        // Display business address
+        addressText.setText(business.address);
+//        addressText.setText(business.address + "\n" + business.city + ", "
+//                + business.state + " " + business.zip);
+
+        // Linkify business phone and address
+        Linkify.addLinks(phoneText, Linkify.ALL);
+        Linkify.addLinks(addressText, Linkify.ALL);
+    }
+
+    @Override
+    public void onBusinessTaskComplete(Business business) {
+        Log.d(getClass().getName(), business.name);
+        setBusiness(business);
     }
 
     private class HeaderGestureListener extends GestureDetector.SimpleOnGestureListener {
