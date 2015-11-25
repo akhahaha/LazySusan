@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorPrimary">#f44336</color>
+    <color name="colorPrimaryDark">#d32f2f</color>
+    <color name="colorAccent">#ffdd00</color>
 
     <color name="colorCardBg">@color/transparent_black70</color>
     <color name="colorCardText">@android:color/white</color>
-    <color name="colorCardRatingBar">#FFFCCA</color>
+    <color name="colorCardRatingBar">@color/colorAccent</color>
 
     <!-- Transparencies (% opacity) -->
     <color name="transparent_black10">#1A000000</color>
