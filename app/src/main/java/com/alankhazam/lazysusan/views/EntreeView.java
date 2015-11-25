@@ -1,17 +1,23 @@
 package com.alankhazam.lazysusan.views;
 
 import android.content.Context;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.LayerDrawable;
 import android.util.AttributeSet;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.alankhazam.lazysusan.R;
 import com.alankhazam.lazysusan.data.Entree;
 import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 import com.squareup.picasso.Picasso;
+
+import java.text.NumberFormat;
 
 /**
  * Entree view
@@ -39,7 +45,8 @@ public class EntreeView extends RelativeLayout {
         mSlideLayout = (SlidingUpPanelLayout) findViewById(R.id.entree_sliding_layout);
 
         // Load default image
-        Picasso.with(getContext()).load(R.drawable.bg_splash).into((ImageView) findViewById(R.id.entree_image));
+        Picasso.with(getContext()).load(R.drawable.bg_splash).into(
+                (ImageView) findViewById(R.id.entree_image));
 
         // Detect gestures on Header
         mHeaderGestureDetector = new GestureDetector(getContext(),
@@ -59,6 +66,34 @@ public class EntreeView extends RelativeLayout {
 
     public boolean setEntree(Entree entree) {
         mEntree = entree;
+
+        // Set image
+        if (entree.displayImage != null) {
+            Picasso.with(getContext()).load(entree.displayImage).into(
+                    (ImageView) findViewById(R.id.entree_image));
+        } else {
+            // Load default image
+            Picasso.with(getContext()).load(R.drawable.bg_splash).into(
+                    (ImageView) findViewById(R.id.entree_image));
+        }
+
+        // Set entree header information
+        ((SmartTextView) findViewById(R.id.entree_name)).setText(entree.name);
+        ((TextView) findViewById(R.id.entree_header_business)).setText(entree.businessName);
+        ((TextView) findViewById(R.id.entree_price)).setText(NumberFormat.getCurrencyInstance()
+                .format(entree.price));
+
+        // Set description
+        ((TextView) findViewById(R.id.entree_description)).setText(entree.description);
+
+        // Set ratings
+        RatingBar ratingBar = (RatingBar) findViewById(R.id.entree_rating_bar);
+        ((LayerDrawable) ratingBar.getProgressDrawable()).getDrawable(2)
+                .setColorFilter(getResources().getColor(R.color.colorCardRatingBar),
+                        PorterDuff.Mode.SRC_ATOP);
+        ratingBar.setRating(entree.ratingAverage.floatValue());
+        String ratingStats = entree.ratingAverage + " / 5.0\n" + entree.ratingCount + " Reviews";
+        ((TextView) findViewById(R.id.entree_rating_stats)).setText(ratingStats);
 
         return true;
     }
