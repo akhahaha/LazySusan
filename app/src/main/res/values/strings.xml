@@ -16,7 +16,6 @@
     <string name="pullTextLess">Less info</string>
     <string name="entreeDescDefault">Entree description</string>
     <string name="entreeRatingDefault">0.0/5</string>
-    <string name="businessNameDefault">Business Name</string>
     <string name="phoneDefault">(555) 555-5555</string>
     <string name="webDefault">www.abc.com</string>
     <string name="addressDefault">123 Broadway Ave</string>
