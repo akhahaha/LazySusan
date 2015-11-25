@@ -10,8 +10,14 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 
 import com.alankhazam.lazysusan.R;
+import com.alankhazam.lazysusan.data.Entree;
+import com.alankhazam.lazysusan.http.EntreeSearchTask;
 import com.alankhazam.lazysusan.views.CardStackView;
 import com.alankhazam.lazysusan.views.EntreeView;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -21,11 +27,13 @@ import com.alankhazam.lazysusan.views.EntreeView;
  * Use the {@link LazySusanFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class LazySusanFragment extends Fragment {
+public class LazySusanFragment extends Fragment implements EntreeSearchTask.EntreeSearchCallback {
     private OnFragmentInteractionListener mListener;
 
     private CardStackView mCardStackView;
     private BaseAdapter mAdapter;
+    private EntreeSearchTask mSearchTask;
+    private List<Entree> mEntrees;
 
     public LazySusanFragment() {
         // Required empty public constructor
@@ -47,6 +55,11 @@ public class LazySusanFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        mSearchTask = new EntreeSearchTask();
+        mSearchTask.setCallback(this);
+        mEntrees = new ArrayList<>();
+        mAdapter = new EntreeStackAdapter();
     }
 
     @Override
@@ -55,9 +68,19 @@ public class LazySusanFragment extends Fragment {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_lazy_susan, container, false);
         mCardStackView = (CardStackView) rootView.findViewById(R.id.cardStackView);
-        mAdapter = new EntreeStackAdapter();
-        mCardStackView.setAdapter(mAdapter);
+
+        getEntrees();
         return rootView;
+    }
+
+    private void getEntrees() {
+        mSearchTask.execute();
+    }
+
+    @Override
+    public void onEntreeSearchComplete(Collection<Entree> entrees) {
+        mEntrees.addAll(entrees);
+        mCardStackView.setAdapter(mAdapter);
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -89,7 +112,7 @@ public class LazySusanFragment extends Fragment {
      * fragment to allow an interaction in this fragment to be communicated
      * to the activity and potentially other fragments contained in that
      * activity.
-     * <p>
+     * <p/>
      * See the Android Training lesson <a href=
      * "http://developer.android.com/training/basics/fragments/communicating.html"
      * >Communicating with Other Fragments</a> for more information.
@@ -99,11 +122,11 @@ public class LazySusanFragment extends Fragment {
         void onFragmentInteraction(Uri uri);
     }
 
-    public class EntreeStackAdapter extends BaseAdapter {
+    private class EntreeStackAdapter extends BaseAdapter {
 
         @Override
         public int getCount() {
-            return 5;
+            return mEntrees.size();
         }
 
         @Override
@@ -118,7 +141,8 @@ public class LazySusanFragment extends Fragment {
 
         @Override
         public View getView(int position, View view, ViewGroup parent) {
-            EntreeView entreeView = new EntreeView(getActivity());
+            EntreeView entreeView = new EntreeView(getContext());
+            entreeView.setEntree(mEntrees.get(position));
             return entreeView;
         }
     }
