@@ -51,7 +51,7 @@ public class Entree extends Data {
         entree.businessName = json.optString("businessName", null);
         entree.businessId = json.optString("businessId", null);
 
-        entree.price = json.optDouble("priceRange", -1);
+        entree.price = json.optDouble("price", -1);
         entree.ratingAverage = json.optDouble("ratingAverage", -1);
         entree.ratingCount = json.optInt("ratingCount", -1);
         entree.description = json.optString("description", null);
