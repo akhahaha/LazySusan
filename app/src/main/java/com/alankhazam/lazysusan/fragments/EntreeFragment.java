@@ -4,38 +4,31 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.alankhazam.lazysusan.R;
 import com.alankhazam.lazysusan.data.Entree;
-import com.alankhazam.lazysusan.http.EntreeSearchTask;
-
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import com.alankhazam.lazysusan.views.EntreeView;
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link LazySusanFragment.OnFragmentInteractionListener} interface
+ * {@link EntreeFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link LazySusanFragment#newInstance} factory method to
+ * Use the {@link EntreeFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class LazySusanFragment extends Fragment implements EntreeSearchTask.EntreeSearchCallback {
+public class EntreeFragment extends Fragment {
+    // Fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+    private static final String ARG_PARAM1 = "ENTREE";
+
+    private Entree mEntree;
+
     private OnFragmentInteractionListener mListener;
 
-    private ViewPager mEntreeBrowser;
-    private FragmentPagerAdapter mAdapter;
-    private EntreeSearchTask mSearchTask;
-    private List<Entree> mEntrees;
-
-    public LazySusanFragment() {
+    public EntreeFragment() {
         // Required empty public constructor
     }
 
@@ -43,44 +36,34 @@ public class LazySusanFragment extends Fragment implements EntreeSearchTask.Entr
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
      *
-     * @return A new instance of fragment LazySusanFragment.
+     * @param entree Entree to display
+     * @return A new instance of fragment EntreeFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static LazySusanFragment newInstance() {
-        LazySusanFragment fragment = new LazySusanFragment();
+    public static EntreeFragment newInstance(Entree entree) {
+        EntreeFragment fragment = new EntreeFragment();
         Bundle args = new Bundle();
+        args.putParcelable(ARG_PARAM1, entree);
+        fragment.setArguments(args);
         return fragment;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        mSearchTask = new EntreeSearchTask();
-        mSearchTask.setCallback(this);
-        mEntrees = new ArrayList<>();
-        mAdapter = new EntreeBrowserAdapter(getActivity().getSupportFragmentManager());
+        if (getArguments() != null) {
+            mEntree = getArguments().getParcelable(ARG_PARAM1);
+        }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View rootView = inflater.inflate(R.layout.fragment_lazy_susan, container, false);
-        mEntreeBrowser = (ViewPager) rootView.findViewById(R.id.entreeBrowser);
-
-        getEntrees();
+        View rootView = inflater.inflate(R.layout.fragment_entree, container, false);
+        EntreeView entreeView = (EntreeView) rootView.findViewById(R.id.entree_view);
+        entreeView.setEntree(mEntree);
         return rootView;
-    }
-
-    private void getEntrees() {
-        mSearchTask.execute();
-    }
-
-    @Override
-    public void onEntreeSearchComplete(Collection<Entree> entrees) {
-        mEntrees.addAll(entrees);
-        mEntreeBrowser.setAdapter(mAdapter);
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -112,7 +95,7 @@ public class LazySusanFragment extends Fragment implements EntreeSearchTask.Entr
      * fragment to allow an interaction in this fragment to be communicated
      * to the activity and potentially other fragments contained in that
      * activity.
-     * <p/>
+     * <p>
      * See the Android Training lesson <a href=
      * "http://developer.android.com/training/basics/fragments/communicating.html"
      * >Communicating with Other Fragments</a> for more information.
@@ -120,29 +103,5 @@ public class LazySusanFragment extends Fragment implements EntreeSearchTask.Entr
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
-    }
-
-    private class EntreeBrowserAdapter extends FragmentPagerAdapter {
-        public EntreeBrowserAdapter(FragmentManager fm) {
-            super(fm);
-        }
-
-        /**
-         * Return the Fragment associated with a specified position.
-         *
-         * @param position
-         */
-        @Override
-        public Fragment getItem(int position) {
-            return EntreeFragment.newInstance(mEntrees.get(position));
-        }
-
-        /**
-         * Return the number of views available.
-         */
-        @Override
-        public int getCount() {
-            return mEntrees.size();
-        }
     }
 }
