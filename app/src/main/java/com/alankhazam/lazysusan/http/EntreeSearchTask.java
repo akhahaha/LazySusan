@@ -14,25 +14,16 @@ import java.util.Collection;
 import cz.msebera.android.httpclient.Header;
 
 /**
- * Asynchronous HTTP task with callback to get entrees.
+ * Asynchronous HTTP task with callback to get Entrees.
  * Created by AK on 11/24/2015.
  */
-public class EntreeSearchTask {
+public class EntreeSearchTask extends RequestTask {
 
-    private static final String BASE_URL = "http://lazysusanapi2.herokuapp.com/search";
-    private RequestParams mParams;
+    private static final String URL = "http://lazysusanapi2.herokuapp.com/search";
     private EntreeSearchCallback mCallback;
 
     public EntreeSearchTask() {
-        mParams = new RequestParams();
-    }
-
-    public void setParam(String key, String value) {
-        mParams.put(key, value);
-    }
-
-    public void setQuery(String query) {
-        mParams.put("q", query);
+        super(URL);
     }
 
     public void setLocation(Location location) {
@@ -40,12 +31,13 @@ public class EntreeSearchTask {
     }
 
     public void setLocation(double latitude, double longitude) {
-        mParams.put("lat", latitude);
-        mParams.put("lon", longitude);
+        setParam("lat", latitude);
+        setParam("lon", longitude);
     }
 
+    @Override
     public void execute() {
-        String request = mParams.buildRequest(BASE_URL);
+        String request = getRequest();
         Log.d(getClass().getName(), "GET " + request);
 
         AsyncHttpClient client = new AsyncHttpClient();
@@ -61,11 +53,12 @@ public class EntreeSearchTask {
         });
     }
 
-    public interface EntreeSearchCallback {
-        public void onEntreeSearchComplete(Collection<Entree> entrees);
+    public interface EntreeSearchCallback extends RequestCallback {
+        void onEntreeSearchComplete(Collection<Entree> entrees);
     }
 
-    public void setCallback(EntreeSearchCallback callback) {
+    public RequestTask setCallback(EntreeSearchCallback callback) {
         mCallback = callback;
+        return this;
     }
 }
